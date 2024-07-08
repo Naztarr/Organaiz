@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: organaiz
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Organaiz_db
+    username: postgres
+    password: idealnaz
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  security:
+    user:
+      name: organaiz
+      password: organaiz
+
+organaiz:
+  security:
+    jwt-secret-key: ${JWT_SECRET_KEY}
+
