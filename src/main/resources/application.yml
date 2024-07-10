@@ -2,9 +2,9 @@ spring:
   application:
     name: organaiz
   datasource:
-    url: jdbc:postgresql://organaiz-1.c98iw8ig4ltb.us-east-1.rds.amazonaws.com:5432/organaiz-1
-    username: postgres
-    password: "Idealnaz1$naz"
+    url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+    username: ${PGUSER}
+    password: ${PGPASSWORD}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
@@ -21,4 +21,4 @@ spring:
 
 organaiz:
   security:
-    jwt-secret-key: 01ffcb07d72f292ff092bda98d15c241542dbb69ac64caae8e3fa18efc2fd53136b8f3090ea1a7e2b1cd2ae082974e9178ec2ffd944d78605f4c371079bf9bd7
+    jwt-secret-key: ${JWT_SECRET_KEY}
