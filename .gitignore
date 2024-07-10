@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+/.catalystrc
+/app-config.json
+/catalyst.json

@@ -2,12 +2,18 @@ spring:
   application:
     name: organaiz
   datasource:
-    url: jdbc:postgresql://localhost:5432/Organaiz_db
+    url: jdbc:postgresql://organaiz-1.c98iw8ig4ltb.us-east-1.rds.amazonaws.com:5432/organaiz-1
     username: postgres
     password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format-sql: true
+    show-sql: true
   security:
     user:
       name: organaiz
@@ -16,4 +22,3 @@ spring:
 organaiz:
   security:
     jwt-secret-key: ${JWT_SECRET_KEY}
-
