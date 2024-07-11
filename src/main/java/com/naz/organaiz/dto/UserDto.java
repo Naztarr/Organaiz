@@ -19,7 +19,6 @@ public record UserDto(@NotBlank(message = "First name is required")
                       message = "Password must contain at least an uppercase, a lowercase, a digit, and a special character")
                       String password,
 
-                      @Pattern(regexp = "^\\d{11}$", message = "Phone number must be 11 digits")
                       String phone
 ) {
 }

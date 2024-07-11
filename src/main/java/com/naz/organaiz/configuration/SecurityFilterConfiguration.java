@@ -38,6 +38,7 @@ public class SecurityFilterConfiguration {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
                                 "/auth/**",
+                                "/api/**",
                                 "/swagger-ui.html",
                                 "/webjars/**",
                                 "/swagger-ui/**",
