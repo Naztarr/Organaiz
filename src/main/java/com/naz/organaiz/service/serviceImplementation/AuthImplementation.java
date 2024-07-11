@@ -49,9 +49,9 @@ public class AuthImplementation implements AuthenticationService {
 
         Optional<User> userOptional = userRepository.findByEmail(dto.email());
         if(userOptional.isPresent()){
-            return new ResponseEntity<>(new ApiResponse<>("Bad request", "A user already exists with this email",
-                    422), HttpStatus.UNPROCESSABLE_ENTITY);
-        } else if(dto.password().equals(dto.confirmPassword())){
+            return new ResponseEntity<>(new ApiResponse<>("Bad request", "Registration unsuccessful",
+                    400), HttpStatus.BAD_REQUEST);
+        } else {
             UserMapper.mapToUser(dto, user);
             user.setPassword(passwordEncoder.encode(dto.password()));
 
@@ -74,9 +74,6 @@ public class AuthImplementation implements AuthenticationService {
 
             userResponse.setAccessToken(generateToken(user, null));
             userResponse.setUserData(UserMapper.mapToUserData(user, new UserData()));
-        } else {
-            return new ResponseEntity<>(new ApiResponse<>("Bad request", "Registration unsuccessful",
-                    400), HttpStatus.BAD_REQUEST);
         }
         ApiResponse response = new ApiResponse<>("success", "Registration successful", userResponse);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
