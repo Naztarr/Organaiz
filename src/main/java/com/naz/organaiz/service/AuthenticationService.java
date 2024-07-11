@@ -4,7 +4,6 @@ import com.naz.organaiz.dto.LoginDto;
 import com.naz.organaiz.dto.UserDto;
 import com.naz.organaiz.payload.ApiResponse;
 import com.naz.organaiz.payload.UserResponse;
-import com.naz.organaiz.payload.UserData;
 import org.springframework.http.ResponseEntity;
 
 public interface AuthenticationService {

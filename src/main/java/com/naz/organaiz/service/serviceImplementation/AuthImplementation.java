@@ -3,7 +3,6 @@ package com.naz.organaiz.service.serviceImplementation;
 
 import com.naz.organaiz.dto.LoginDto;
 import com.naz.organaiz.dto.UserDto;
-import com.naz.organaiz.exception.OrganaizException;
 import com.naz.organaiz.mapper.UserMapper;
 import com.naz.organaiz.model.Organisation;
 import com.naz.organaiz.model.User;

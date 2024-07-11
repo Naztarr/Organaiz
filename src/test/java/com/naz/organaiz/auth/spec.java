@@ -1,6 +1,7 @@
 package com.naz.organaiz.auth;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.naz.organaiz.configuration.JwtAuthenticationFilter;
 import com.naz.organaiz.dto.LoginDto;
 import com.naz.organaiz.dto.UserDto;
 import com.naz.organaiz.model.Organisation;
@@ -9,11 +10,15 @@ import com.naz.organaiz.repository.OrganisationRepository;
 import com.naz.organaiz.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.TestPropertySource;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Objects;
@@ -24,7 +29,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
+@ExtendWith(SpringExtension.class)
 @AutoConfigureMockMvc
+@TestPropertySource(locations = "classpath:/application-test.yml")
+@ActiveProfiles("test")
 public class spec {
     @Autowired
     private MockMvc mockMvc;
@@ -40,6 +48,9 @@ public class spec {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @BeforeEach
     void setUp() {
@@ -62,8 +73,7 @@ public class spec {
     @Test
     public void testRegisterUserSuccessfully() throws Exception {
         UserDto dto = new UserDto("Naz", "Star",
-                "Naz@gmail.com", "Azanaz1$",
-                "Azanaz1$", "09032456534");
+                "Naz@gmail.com", "Azanaz1$","09032456534");
 
         mockMvc.perform(post("/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -94,8 +104,7 @@ public class spec {
     @Test
     public void testRegisterUserWithMissingFields() throws Exception {
         UserDto dto = new UserDto("Naz", "Star",
-                "", "Azanaz1$",
-                "Azanaz1$", "09032456534");
+                "", "Azanaz1$", "09032456534");
 
         mockMvc.perform(post("/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
@@ -155,14 +164,14 @@ public class spec {
         User user = createUser();
         // Registering with an existing email
         UserDto dto = new UserDto("Paul", "Kim", "Naz@gmail.com",
-                "Azanaz1$", "Azanaz1$", "09032456534");
+                "Azanaz1$", "09032456534");
 
         mockMvc.perform(post("/auth/register")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(dto)))
-                .andExpect(status().isUnprocessableEntity())
+                .andExpect(status().isBadRequest())
                 .andExpect(jsonPath("$.status").value("Bad request"))
-                .andExpect(jsonPath("$.message").value("A user already exists with this email"))
-                .andExpect(jsonPath("$.statusCode").value(422));
+                .andExpect(jsonPath("$.message").value("Registration unsuccessful"))
+                .andExpect(jsonPath("$.statusCode").value(400));
     }
 }
