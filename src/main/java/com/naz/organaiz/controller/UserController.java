@@ -3,7 +3,6 @@ package com.naz.organaiz.controller;
 
 import com.naz.organaiz.payload.ApiResponse;
 import com.naz.organaiz.payload.UserData;
-import com.naz.organaiz.repository.UserRepository;
 import com.naz.organaiz.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
