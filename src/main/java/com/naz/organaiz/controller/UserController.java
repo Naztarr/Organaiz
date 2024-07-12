@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     private final UserService userService;
 
-    @GetMapping("/users/{userID}")
+    @GetMapping("/users/{userId}")
     @Operation(summary = "user data",
             description = "Retrieves the record of a particular user")
     public ResponseEntity<ApiResponse<UserData>> getUserRecord(@PathVariable String userId){
