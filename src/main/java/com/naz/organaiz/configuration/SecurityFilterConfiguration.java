@@ -38,9 +38,6 @@ public class SecurityFilterConfiguration {
                 .authorizeHttpRequests(requests -> requests
                         .requestMatchers(
                                 "/auth/**",
-                                "api/**",
-                                "/api/organisations/**",
-                                "/api/users/**",
                                 "/swagger-ui.html",
                                 "/webjars/**",
                                 "/swagger-ui/**",
@@ -52,9 +49,10 @@ public class SecurityFilterConfiguration {
                                 "/v3/api-docs",
                                 "/v3/api-docs/**"
                         ).permitAll()
+                        .requestMatchers("/api/**").authenticated()
+                        .anyRequest().permitAll()
                 )
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                .authorizeHttpRequests(requests -> requests.anyRequest().authenticated())
                 .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
