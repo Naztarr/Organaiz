@@ -40,7 +40,7 @@ public class JwtImplementation implements JwtService {
     @Override
     public String generateJwtToken(Map<String, Object> claims, String emailAddress, Long expiryDate) {
         Instant issuedAt = Instant.now().truncatedTo(ChronoUnit.SECONDS);
-        Instant expiration = issuedAt.plus(expiryDate == null? 86400:expiryDate, ChronoUnit.MILLIS);
+        Instant expiration = issuedAt.plus(expiryDate == null? 86400000:expiryDate, ChronoUnit.MILLIS);
 
         return Jwts
                 .builder()
